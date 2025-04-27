@@ -152,6 +152,9 @@
             color: #34495e;
         }
     </style>
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7535213942826916"
+     crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
@@ -170,6 +173,18 @@
         <!-- Items Grid -->
         <div class="items" id="itemsContainer">
             <!-- Dynamically generated items will appear here -->
+
+            <!-- Google AdSense Ad -->
+            <div class="adsense-ad">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-7535213942826916"
+                     data-ad-slot="YOUR_AD_SLOT"
+                     data-ad-format="auto"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </div>
     </div>
 
@@ -206,42 +221,35 @@
                 const itemElement = document.createElement('div');
                 itemElement.classList.add('item');
                 itemElement.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}" />
+                    <img src="${item.image}" alt="${item.name}">
                     <h3>${item.name}</h3>
                     <p>Price: ₹${item.price}</p>
-                    <p>Purchased: ${item.quantity}</p>
                     <button onclick="buyItem('${item.name}')">Buy</button>
                 `;
                 container.appendChild(itemElement);
             });
         }
 
-        // Function to handle item purchase
+        // Function to handle buying an item
         function buyItem(itemName) {
             const item = items.find(i => i.name === itemName);
             if (balance >= item.price) {
-                // Deduct the price from balance and increase quantity
                 balance -= item.price;
-                item.quantity++;
-
-                // Update the balance display
                 document.getElementById('balance').innerText = `Your Balance: ₹${balance}`;
-
-                // Update the items display
-                displayItems(items);
+                alert(`${itemName} purchased!`);
             } else {
-                alert('Not enough balance');
+                alert('Insufficient funds!');
             }
         }
 
         // Function to search items
         function searchItems() {
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchQuery));
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchTerm));
             displayItems(filteredItems);
         }
 
-        // Initially display all items
+        // Display all items initially
         displayItems(items);
     </script>
 </body>
