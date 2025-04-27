@@ -1,2 +1,247 @@
-# FunVault
-The world will see what I do
+<! DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FunVault</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f0f0f0, #e6e6e6);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Container for the page content */
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Header styles */
+        h1 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        /* Balance display styles */
+        .balance {
+            font-size: 24px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+
+        /* Search and Refer container */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 300px;
+        }
+
+        .search-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Flexbox container for items */
+        .items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 30px;
+        }
+
+        /* Item Card Styles */
+        .item {
+            width: 250px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        /* Item Image Styling */
+        .item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Item Title */
+        .item h3 {
+            font-size: 22px;
+            color: #34495e;
+            margin: 10px 0;
+        }
+
+        /* Item Purchase Button */
+        .item button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover Effects */
+        .item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .item button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Responsive Styles for Mobile */
+        @media (max-width: 768px) {
+            .items {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .item {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 18px;
+            color: #34495e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shop Items</h1>
+        <div class="balance" id="balance">Your Balance: ₹100,000,000,000</div>
+
+        <!-- Search and Refer Bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-bar" placeholder="Search items..." />
+            <button class="search-btn" onclick="searchItems()">Search</button>
+            <a href="about.html">
+                <button class="search-btn">Refer</button>
+            </a>
+        </div>
+
+        <!-- Items Grid -->
+        <div class="items" id="itemsContainer">
+            <!-- Dynamically generated items will appear here -->
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 YourShop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Initial balance set to ₹100,000,000,000
+        let balance = 100000000000;
+
+        // Array of items for sale
+        const items = [
+            { name: "Tank", price: 100000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlS3LFvXp6_g4S2lj9KF5Uz8WyWAxMhNhuSeRCXthJLPZJF-x1qgSVfqQ&s=10" },
+            { name: "Ship", price: 200000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS00sHmTNpxPhWuO_ex-pDwhspgWJgBe6-WWpsaeab9DpxhbATxVxAhFqE&s=10" },
+            { name: "Jet", price: 150000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQisIePUGJa-MjJVEAMzELqcYKkVp_sx4z2YQ&s" },
+            { name: "Aeroplane", price: 500000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbMu8ZEsaKSkNxVyLDEZ3p9YXzH92PECbGj3SJuov9RpxspcOuzQdDdpQ&s=10" },
+            { name: "Helicopter", price: 300000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlBDc6hOK4Llmvvi-ehdDc7t_qiOusH-P7xA&s" },
+            { name: "Big House", price: 2000000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuK_MnSelz4oOiUPOyJbM6BO_GxdMdNmRHokBkR9NkSy2I2k7gzKV6ck3f&s=10" },
+            { name: "Bada Bangla", price: 5000000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYcIepnnXLWa3S3CNsOsU-fZiE7-D_ByOXhN190nn4-XkUYNz4Got609k&s=10" },
+            { name: "Luxury Yacht", price: 8000000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6atUpFTALE8D0Z7nBrPHpJ6EFrKyjpGl_ZQ&s" },
+            { name: "Submarine", price: 7000000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHGLvVZSCGvGX5c3SUaqdVe4_CjO00yBwCGdUUAB8dz3zakS31vrmLhtET&s=10" },
+            { name: "Rm Speedtail ", price: 120000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReMvVuQO3eTXHSMsQ-32zxQ9igC5vCNbsoogmiKV27Cn307BOjqMUtuV6y&s=10" },
+            { name: "ROLLS ROYCE GHOST", price: 60000000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_y4W5Em1AcR_V1CduzvU68yUP2LBeNTuFdWJ3kWwl1yY6rKE6AmNgFvs&s=10" },
+            
+            // Newly added expensive items
+            { name: "Private Island", price: 50000000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb_EXMmvvIDdD1-0BH0vdOyEOT2qbGAQXBUIvyrdfT3XzUeetBKri3c7o&s=10" },
+            { name: "Space Rocket", price: 100000000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzlRJApCT8wrSYAhYgSuCLp0i1eyyH8D18WqCgWdPWBtYdVl0GLRty3Gw&s=10" },
+            { name: "Gold Mine", price: 200000000, quantity: 0, image: "https://m-mtoday.com/wp-content/uploads/sites/12/2023/10/benefits-of-gold-mining-image.jpeg" },
+            { name: "Luxury Resort", price: 50000000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-PIfBH8llSdYWxmO_c-zxe_s10UjQXhhLIRL1qpEE0Z15z2FPa-SdRano&s=10" },
+            { name: "Mega Mansion", price: 100000000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLP6X4YiJ9Kk0G9u7skvdZJvrebtV_z_iZ9bJbFLru4b1vLlDxCwkxDEw&s=10" }
+        ];
+
+        // Function to display all items
+        function displayItems(itemsToDisplay) {
+            const container = document.getElementById('itemsContainer');
+            container.innerHTML = ''; // Clear existing items
+
+            itemsToDisplay.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('item');
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" />
+                    <h3>${item.name}</h3>
+                    <p>Price: ₹${item.price}</p>
+                    <p>Purchased: ${item.quantity}</p>
+                    <button onclick="buyItem('${item.name}')">Buy</button>
+                `;
+                container.appendChild(itemElement);
+            });
+        }
+
+        // Function to handle item purchase
+        function buyItem(itemName) {
+            const item = items.find(i => i.name === itemName);
+            if (balance >= item.price) {
+                // Deduct the price from balance and increase quantity
+                balance -= item.price;
+                item.quantity++;
+
+                // Update the balance display
+                document.getElementById('balance').innerText = `Your Balance: ₹${balance}`;
+
+                // Update the items display
+                displayItems(items);
+            } else {
+                alert('Not enough balance');
+            }
+        }
+
+        // Function to search items
+        function searchItems() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchQuery));
+            displayItems(filteredItems);
+        }
+
+        // Initially display all items
+        displayItems(items);
+    </script>
+</body>
+</html>
