@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FunVault - Referral Section</title>
+  <style>
+    .referral-section {
+      background-color: #f8f8f8;
+      padding: 30px;
+      margin-top: 40px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .referral-section h2 {
+      font-size: 24px;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .referral-section p {
+      font-size: 18px;
+      color: #34495e;
+      margin-bottom: 20px;
+    }
+
+    .referral-section input {
+      padding: 10px;
+      width: 60%;
+      max-width: 400px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+
+    .referral-section button {
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .referral-section button:hover {
+      background-color: #2980b9;
+    }
+
+    .share-buttons {
+      margin-top: 20px;
+    }
+
+    .share-buttons a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: white;
+      background-color: #1d87f0;
+      padding: 10px 15px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .share-buttons a:hover {
+      background-color: #0056b3;
+    }
+
+    .notification {
+      background-color: #e0f7fa;
+      color: #00796b;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 5px;
+      display: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>FunVault - Your Referral Section</h1>
+
+    <div class="referral-section">
+      <h2>Refer & Earn</h2>
+      <p>Refer your friends and earn points! Share your referral code below.</p>
+
+      <input type="text" id="referralCode" placeholder="Enter Referral Code" />
+      <button onclick="submitReferralCode()">Submit</button>
+
+      <div class="notification" id="notification">
+        In upcoming updates, you will receive some exciting coupons! Stay tuned!
+      </div>
+
+      <div class="share-buttons">
+        <p>Share Referral Code:</p>
+        <a href="#" id="facebookShare" target="_blank">Facebook</a>
+        <a href="#" id="twitterShare" target="_blank">Twitter</a>
+        <a href="#" id="whatsappShare" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function submitReferralCode() {
+      var code = document.getElementById('referralCode').value;
+      if (code === "REF12345") {
+        document.getElementById('notification').style.display = "block";
+        alert("Referral Code Submitted: " + code);
+      } else {
+        alert("Invalid Referral Code! Please try again.");
+      }
+    }
+
+    var referralCode = "REF12345";
+    var funVaultLink = "https://www.funvault.com/?ref=" + referralCode;
+    var encodedLink = encodeURIComponent(funVaultLink);
+
+    document.getElementById('facebookShare').href =
+      "https://www.facebook.com/sharer/sharer.php?u=" + encodedLink;
+
+    document.getElementById('twitterShare').href =
+      "https://twitter.com/intent/tweet?text=Join%20FunVault%20and%20use%20my%20referral%20code%3A%20" +
+      referralCode + "%20Sign%20up%20here%3A%20" + encodedLink;
+
+    document.getElementById('whatsappShare').href =
+      "https://api.whatsapp.com/send?text=" +
+      encodeURIComponent("Join FunVault and use my referral code: " + referralCode + ". Sign up here: " + funVaultLink);
+  </script>
+
+</body>
+</html>
