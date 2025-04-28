@@ -125,6 +125,32 @@
       font-size: 18px;
       color: #34495e;
     }
+
+    /* Login/Register Form */
+    .auth-container {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .auth-container input {
+      padding: 10px;
+      width: 200px;
+      margin: 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .auth-container button {
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .auth-container button:hover {
+      background-color: #2980b9;
+    }
   </style>
 </head>
 <body>
@@ -142,6 +168,20 @@
 
     <div class="items" id="itemsContainer">
       <!-- Items will load here -->
+    </div>
+
+    <!-- Login/Register Form -->
+    <div class="auth-container">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+
+      <h2>OR</h2>
+      <h2>Register</h2>
+      <input type="text" id="newUsername" placeholder="Username" />
+      <input type="password" id="newPassword" placeholder="Password" />
+      <button onclick="register()">Register</button>
     </div>
   </div>
 
@@ -199,6 +239,27 @@
       const searchQuery = document.getElementById('searchInput').value.toLowerCase();
       const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchQuery));
       displayItems(filteredItems);
+    }
+
+    // Login and Register functions
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      if (username && password) {
+        alert('Logged in successfully!');
+      } else {
+        alert('Please enter both username and password.');
+      }
+    }
+
+    function register() {
+      const username = document.getElementById('newUsername').value;
+      const password = document.getElementById('newPassword').value;
+      if (username && password) {
+        alert('Registered successfully!');
+      } else {
+        alert('Please enter both username and password.');
+      }
     }
 
     displayItems(items);
