@@ -41,6 +41,50 @@
             margin-bottom: 40px;
         }
 
+        /* Profile section */
+        .profile-section {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            border-radius: 25px;
+            background-color: #ecf0f1;
+            padding: 10px 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-container img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .profile-container .name {
+            font-size: 18px;
+            color: #34495e;
+        }
+
+        .profile-container .edit-btn {
+            padding: 6px 12px;
+            background-color: #3498db;
+            color: white;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .profile-container .edit-btn:hover {
+            background-color: #2980b9;
+        }
+
         /* Search Bar Container */
         .search-container {
             display: flex;
@@ -48,7 +92,6 @@
             margin-bottom: 20px;
         }
 
-        /* Search Bar */
         .search-bar {
             padding: 10px;
             width: 70%;
@@ -58,7 +101,6 @@
             font-size: 18px;
         }
 
-        /* Search Button */
         .search-btn, .refer-btn, .login-btn {
             padding: 10px 20px;
             background-color: #3498db;
@@ -74,7 +116,6 @@
             background-color: #2980b9;
         }
 
-        /* Flexbox container for items */
         .items {
             display: flex;
             flex-wrap: wrap;
@@ -82,7 +123,6 @@
             gap: 30px;
         }
 
-        /* Item Card Styles */
         .item {
             width: 250px;
             background: #ecf0f1;
@@ -94,7 +134,6 @@
             text-align: center;
         }
 
-        /* Item Image Styling */
         .item img {
             width: 100%;
             height: 180px;
@@ -102,14 +141,12 @@
             border-radius: 10px;
         }
 
-        /* Item Title */
         .item h3 {
             font-size: 22px;
             color: #34495e;
             margin: 10px 0;
         }
 
-        /* Item Purchase Button */
         .item button {
             background-color: #3498db;
             color: white;
@@ -121,7 +158,6 @@
             transition: background-color 0.3s ease;
         }
 
-        /* Hover Effects */
         .item:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
@@ -131,7 +167,6 @@
             background-color: #2980b9;
         }
 
-        /* Responsive Styles for Mobile */
         @media (max-width: 768px) {
             .items {
                 flex-direction: column;
@@ -144,7 +179,6 @@
             }
         }
 
-        /* Footer Styles */
         footer {
             text-align: center;
             margin-top: 40px;
@@ -155,6 +189,17 @@
 </head>
 <body>
     <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-container">
+                <img src="https://via.placeholder.com/50" alt="Profile Picture">
+                <div class="name">John Doe</div>
+                <a href="profile.html">
+                    <button class="edit-btn">Edit Profile</button>
+                </a>
+            </div>
+        </div>
+
         <h1>Shop Items</h1>
         <div class="balance" id="balance">Your Balance: ₹100,000,000,000</div>
 
@@ -181,10 +226,7 @@
     </footer>
 
     <script>
-        // Initial balance set to ₹100,000,000,000
         let balance = 100000000000;
-
-        // Array of items for sale, starting with quantity 0
         const items = [
             { name: "Tank", price: 100000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlS3LFvXp6_g4S2lj9KF5Uz8WyWAxMhNhuSeRCXthJLPZJF-x1qgSVfqQ&s=10" },
             { name: "Ship", price: 200000, quantity: 0, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS00sHmTNpxPhWuO_ex-pDwhspgWJgBe6-WWpsaeab9DpxhbATxVxAhFqE&s=10" },
@@ -197,13 +239,11 @@
             { name: "Submarine", price: 7000000, quantity: 0, image: "https://via.placeholder.com/250?text=Submarine" },
             { name: "Robot Companion", price: 120000, quantity: 0, image: "https://via.placeholder.com/250?text=Robot+Companion" },
             { name: "Hoverboard", price: 50000, quantity: 0, image: "https://via.placeholder.com/250?text=Hoverboard" }
-            // You can continue adding more items here as needed
         ];
 
-        // Function to display all items
         function displayItems(itemsToDisplay) {
             const container = document.getElementById('itemsContainer');
-            container.innerHTML = ''; // Clear existing items
+            container.innerHTML = '';
 
             itemsToDisplay.forEach(item => {
                 const itemElement = document.createElement('div');
@@ -219,32 +259,25 @@
             });
         }
 
-        // Function to handle item purchase
         function buyItem(itemName) {
             const item = items.find(i => i.name === itemName);
             if (balance >= item.price) {
-                // Deduct the price from balance and increase quantity
                 balance -= item.price;
                 item.quantity++;
 
-                // Update the balance display
                 document.getElementById('balance').innerText = `Your Balance: ₹${balance}`;
-
-                // Update the items display
                 displayItems(items);
             } else {
                 alert('Not enough balance');
             }
         }
 
-        // Function to search items
         function searchItems() {
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchQuery));
             displayItems(filteredItems);
         }
 
-        // Initially display all items
         displayItems(items);
     </script>
 </body>
