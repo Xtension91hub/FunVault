@@ -108,12 +108,23 @@
         return;
       }
 
-      // Save user data to localStorage (for demo only)
-      localStorage.setItem('name', name);
-      localStorage.setItem('email', email);
-      localStorage.setItem('password', password);
+      // Get existing users or empty array
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-      // Redirect to login page
+      // Check if email already exists
+      const existingUser = users.find(user => user.email === email);
+      if (existingUser) {
+        alert("This email is already registered.");
+        return;
+      }
+
+      // Add new user to users array
+      users.push({ name, email, password });
+
+      // Save updated users array
+      localStorage.setItem('users', JSON.stringify(users));
+
+      alert("Account successfully created! Please login.");
       window.location.href = 'login.html';
     });
   </script>
